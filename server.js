@@ -6,7 +6,7 @@ const util = require('util');
 const uuid = require('./helpers/uuid');
 const { json } = require('body-parser');
 const PORT = process.env.PORT || 3000;
-// const PORT = 3000;
+require("dotenv").config();
 const app = express();
 
 // Middleware for parsing JSON and urlencoded form data
@@ -15,12 +15,13 @@ app.use(express.urlencoded({ extended: true }));
 //Connect to database
 const db = mysql.createConnection(
   {
-    host: 'localhost',
+    // host: 'localhost',
+    host : process.env.HOST || 'localhost',
     // MySQL username,
-    user: 'root',
+    user:  process.env.USER ||'root',
     // MySQL password
-    password: 'sanaz123',
-    database: 'note_db'
+    password: process.env.PASSWORD || 'sanaz123',
+    database:  process.env.DATABASE || 'note_db'
   },
   console.log(`Connected to the courses_db database.`)
 );
@@ -48,9 +49,9 @@ app.get('/api/notes', (req, res) => {
         console.log(results);
         res.send(results);
       });
-      console.log("sallaaam")
+      
 });
-
+db.query('CREATE REMOTE TABLE note_db.schema.note_db ')
 app.post('/api/notes', (req, res) => {
     // let ranId= uuid;
     db.query(`INSERT INTO note_db (id, title, text)
