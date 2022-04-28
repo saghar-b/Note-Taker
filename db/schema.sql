@@ -1,0 +1,10 @@
+DROP DATABASE IF EXISTS note_db;
+CREATE DATABASE note_db;
+
+USE note_db;
+
+CREATE TABLE note_db (
+  id VARCHAR(300) NOT NULL,
+  title VARCHAR(300) NOT NULL,
+  text VARCHAR(300) NOT NULL
+);

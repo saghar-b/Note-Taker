@@ -1,4 +1,5 @@
 const express = require('express');
+const mysql= require('mysql2')
 const path = require('path');
 const fs = require('fs');
 const util = require('util');
@@ -11,6 +12,19 @@ const app = express();
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+//Connect to database
+const db = mysql.createConnection(
+  {
+    host: 'localhost',
+    // MySQL username,
+    user: 'root',
+    // MySQL password
+    password: 'sanaz123',
+    database: 'note_db'
+  },
+  console.log(`Connected to the courses_db database.`)
+);
+
 
 app.use(express.static('public'));
 
@@ -30,31 +44,44 @@ app.get('/notes', (req, res) => {
 
 })
 app.get('/api/notes', (req, res) => {
-    res.send([{
-        id: 1,
-        title: 'jeff',
-        text: 'bla bla bla',
-    },
-    {
-        id: 2,
-        title: 'jeff 2',
-        text: 'bla bla bla',
-    },
-    ]);
+    db.query('SELECT * FROM note_db', function (err, results) {
+        console.log(results);
+        res.send(results);
+      });
+      console.log("sallaaam")
 });
 
 app.post('/api/notes', (req, res) => {
+    // let ranId= uuid;
+    db.query(`INSERT INTO note_db (id, title, text)
+    VALUES ('${uuid()}', '${req.body.title}', '${req.body.text}');`)
+
     const { title, text } = req.body;
     const note = {
         title,
         text,
         id: uuid()
     }
-    console.log(note)
+    db.query('SELECT * FROM note_db', function (err, results) {
+        console.log(results);
+        res.send(results);
+      });
+    // console.log(note)
 })
 app.delete('/api/notes/:id',(req,res)=>{
     console.log("delete")
     console.log(req.params.id)
+    
+    db.query(`DELETE FROM note_db WHERE id = ?`, req.params.id, (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        // console.log(result);
+      });
+      db.query('SELECT * FROM note_db', function (err, results) {
+        console.log(results);
+        res.send(results);
+      });
 })
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT} 🚀`)
