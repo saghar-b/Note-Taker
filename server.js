@@ -5,8 +5,8 @@ const fs = require('fs');
 const util = require('util');
 const uuid = require('./helpers/uuid');
 const { json } = require('body-parser');
-// const port = process.env.PORT || 3000;
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+// const PORT = 3000;
 const app = express();
 
 // Middleware for parsing JSON and urlencoded form data
