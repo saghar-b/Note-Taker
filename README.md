@@ -51,15 +51,19 @@ please click in the link below to start the project
 ## my work
 * in the server.js
   *  GET *` return the `index.html` file. 
-  *  ![1](./Assets/1.png)
-  *  `GET /notes` return the `notes.html` file.
-  *  ![2](./Assets/2.png)
+  ![1](./Assets/1.png)  
+  *  `GET /notes` return the `notes.html` file.  
+  ![2](./Assets/2.png)  
 
 * in the noteRoutes.js file
   * `GET /api/notes`  read the `db.json` file and return all saved notes as JSON.
 
   * `POST /api/notes`  receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client. 
    *  each note a unique id when it's saved.
-  * `DELETE /api/notes/:id`  receive a query parameter that contains the id of a note to delete. 
+  * `DELETE /api/notes/:id`  receive a query parameter that contains the id of a note to delete.  
 
 ![3](./Assets/3.png)
+
+## Demo
+you can watch the demo in the link below: 
+(https://drive.google.com/file/d/1Xxbhbgx6eTf3toq5Jap7AWXdc3gad8hv/view)
